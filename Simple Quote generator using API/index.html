@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="favicon7.png">
+
+    <title>Simple Quote Generator | Using API</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #000;
+        font-family: helvetica;
+        font-size: 18px;
+      }
+
+      .container {
+        margin: 200px auto;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .quote-box {
+        border: 2px solid #ddd;
+        box-shadow: 0px 0px 20px red;
+        /* box-shadow: 0px 0px 8px blue, 0px 0px 15px red, 0px 0px 20px green; */
+        border-radius: 5px;
+        padding: 30px 20px;
+        margin-bottom: 20px;
+      }
+      #quote {
+        color: #444;
+        text-align: center;
+      }
+      #author {
+        float: right;
+        color: #888;
+        font-weight: bold;
+        font-style: italic;
+        margin-top: 10px;
+      }
+
+      #btn {
+        align-self: center;
+        border: 2px solid #666;
+        border-radius: 5px;
+        padding: 10px 15px;
+        text-transform: uppercase;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      #btn:focus {
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="quote-box">
+        <p id="quote">"Quote goes here..."</p>
+        <small id="author">- Author</small>
+      </div>
+      <button id="btn">New Quote</button>
+    </div>
+
+    <script>
+        const api = "http://api.quotable.io/random";
+
+        const quote = document.querySelector("#quote");
+        const author = document.querySelector("#author");
+        const btn = document.querySelector("#btn");
+
+        btn.addEventListener("click", getQuote);
+
+        function getQuote() {
+          fetch(api)
+          .then((res) => res.json())
+          .then((data) => {
+            quote.innerHTML = `"${data.content}"`;
+            author.innerHTML = `- ${data.author}`;
+          });
+        }
+    </script>
+  </body>
+</html>
